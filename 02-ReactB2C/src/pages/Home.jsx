@@ -1,12 +1,16 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { useMsal } from "@azure/msal-react";
+
+import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";
 const Home = () => {
-
   const [count, setCount] = useState(0);
-  
+
+  const { accounts } = useMsal();
+
   return (
-    <div>
+    <>
+      <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -27,11 +31,10 @@ const Home = () => {
         Click on the Vite and React logos to learn more
       </p>
       <p>
-        <a href="https://learn.microsoft.com/en-us/azure/active-directory-b2c/configure-authentication-sample-react-spa-app#step-3-get-the-react-sample-code">
-          Client ID:
-        </a>
+        <p>Signed in as: {accounts[0]?.username}</p>
       </p>
-  )
-}
+    </>
+  );
+};
 
-export default Home
+export default Home;

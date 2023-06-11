@@ -1,8 +1,7 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
-  useMsal,
   useMsalAuthentication,
 } from "@azure/msal-react";
 
@@ -11,6 +10,7 @@ import {
   // InteractionRequiredAuthError,
   InteractionType,
 } from "@azure/msal-browser";
+import Home from "./pages/Home";
 
 function App() {
   const { result, error } = useMsalAuthentication(InteractionType.Redirect);
@@ -25,13 +25,11 @@ function App() {
   //   }
   // }, [error, login]);
 
-  const { accounts } = useMsal();
-
   return (
     <>
       <p>Anyone can see this paragraph.</p>
       <AuthenticatedTemplate>
-        <p>Signed in as: {accounts[0]?.username}</p>
+        <Home />
       </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
         <p>No users are signed in!</p>
