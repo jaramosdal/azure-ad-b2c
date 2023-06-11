@@ -1,38 +1,41 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useEffect } from "react";
+import {
+  AuthenticatedTemplate,
+  UnauthenticatedTemplate,
+  useMsal,
+  useMsalAuthentication,
+} from "@azure/msal-react";
+
 import "./App.css";
+import {
+  // InteractionRequiredAuthError,
+  InteractionType,
+} from "@azure/msal-browser";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const { result, error } = useMsalAuthentication(InteractionType.Redirect);
+
+  console.log({ result, error });
+
+  // useEffect(() => {
+  //   console.log(error);
+  //   if (error instanceof InteractionRequiredAuthError) {
+  //     console.log("Error silent login");
+  //     login(InteractionType.Popup);
+  //   }
+  // }, [error, login]);
+
+  const { accounts } = useMsal();
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <p>
-        <a href="https://learn.microsoft.com/en-us/azure/active-directory-b2c/configure-authentication-sample-react-spa-app#step-3-get-the-react-sample-code">
-          Client ID:
-        </a>
-      </p>
+      <p>Anyone can see this paragraph.</p>
+      <AuthenticatedTemplate>
+        <p>Signed in as: {accounts[0]?.username}</p>
+      </AuthenticatedTemplate>
+      <UnauthenticatedTemplate>
+        <p>No users are signed in!</p>
+      </UnauthenticatedTemplate>
     </>
   );
 }
