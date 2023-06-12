@@ -6,7 +6,7 @@ import viteLogo from "/vite.svg";
 const Home = () => {
   const [count, setCount] = useState(0);
 
-  const { accounts } = useMsal();
+  const { instance, accounts, inProgress } = useMsal();
 
   return (
     <>
@@ -30,9 +30,7 @@ const Home = () => {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <p>
-        <p>Signed in as: {accounts[0]?.username}</p>
-      </p>
+      <p>Signed in as: {accounts[0]?.username}</p>
     </>
   );
 };

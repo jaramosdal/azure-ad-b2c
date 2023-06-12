@@ -1,4 +1,4 @@
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
@@ -17,13 +17,11 @@ function App() {
 
   console.log({ result, error });
 
-  // useEffect(() => {
-  //   console.log(error);
-  //   if (error instanceof InteractionRequiredAuthError) {
-  //     console.log("Error silent login");
-  //     login(InteractionType.Popup);
-  //   }
-  // }, [error, login]);
+  useEffect(() => {
+    if (result && result.idToken) {
+      sessionStorage.setItem("msal.id_token", result.idToken);
+    }
+  }, [result]);
 
   return (
     <>
