@@ -1,16 +1,17 @@
 import { useEffect } from "react";
+import Container from "react-bootstrap/Container";
 import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
   useMsalAuthentication,
 } from "@azure/msal-react";
 
-import "./App.css";
 import {
   // InteractionRequiredAuthError,
   InteractionType,
 } from "@azure/msal-browser";
 import Home from "./pages/Home";
+import Header from "./components/corporativo/Header";
 
 function App() {
   const { result, error } = useMsalAuthentication(InteractionType.Redirect);
@@ -25,9 +26,11 @@ function App() {
 
   return (
     <>
-      <p>Anyone can see this paragraph.</p>
       <AuthenticatedTemplate>
-        <Home />
+        <Container fluid>
+          <Header />
+          <Home />
+        </Container>
       </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
         <p>No users are signed in!</p>
